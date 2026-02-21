@@ -14,7 +14,7 @@ webhook_client = if config.webhook_url && config.webhook_token
 end
 
 agents = config.agents.map do |agent_config|
-  FizzyPop::Agent.new(name: agent_config[:name], token: agent_config[:token], base_url: config.url, interval_agent_poll: config.interval_agent_poll)
+  FizzyPop::Agent.new(name: agent_config[:name], token: agent_config[:token], base_url: config.url, interval_agent_poll: config.interval_agent_poll, channel: agent_config[:channel], to: agent_config[:to])
 end
 
 agents.each(&:fetch_identity!)
@@ -44,7 +44,7 @@ begin
       FizzyPop::Debug.breadcrumbs << "send_webhook:#{item[:agent_name]}"
 
       if webhook_client
-        webhook_client.deliver(item[:agent_name], item[:message])
+        webhook_client.deliver(item[:agent_name], item[:message], channel: item[:channel], to: item[:to])
       elsif !FizzyPop::Debug.dry_run
         abort "Missing required --webhook-url and --webhook-token"
       end

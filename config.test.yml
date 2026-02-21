@@ -1,0 +1,15 @@
+# Test config for multi-agent fizzy-pop
+url: https://app.fizzy.do
+
+# Webhook settings (dry-run mode, won't actually send)
+webhook_url: http://localhost:18789
+webhook_token: test-token
+
+polling: 10
+
+agents:
+  - name: optimus
+    token: i5dmG8aFanR2vddoZZkjtwU9
+
+  - name: wheeljack
+    token: Z8znPwCdy2aQ72uG7m7dHha9

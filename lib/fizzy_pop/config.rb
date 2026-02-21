@@ -44,7 +44,12 @@ module FizzyPop
 
         if config["agents"]
           options[:agents] = config["agents"].map do |agent|
-            { name: agent["name"], token: agent["token"] }
+            {
+              name: agent["name"],
+              token: agent["token"],
+              channel: agent["channel"],
+              to: agent["to"]
+            }
           end
         end
       end

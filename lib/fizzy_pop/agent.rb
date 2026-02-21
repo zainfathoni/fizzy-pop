@@ -2,8 +2,10 @@ module FizzyPop
   class Agent
     attr_reader :name, :accounts
 
-    def initialize(name:, token:, base_url:, interval_agent_poll: 0.5)
+    def initialize(name:, token:, base_url:, interval_agent_poll: 0.5, channel: nil, to: nil)
       @name = name
+      @channel = channel
+      @to = to
       @client = FizzyClient.new(base_url, token)
       @interval_agent_poll = interval_agent_poll
       @accounts = nil
@@ -98,7 +100,7 @@ module FizzyPop
 
         puts "\e[33m[#{@name}]\e[0m #{message}"
 
-        queue << { agent_name: @name, message: message }
+        queue << { agent_name: @name, message: message, channel: @channel, to: @to }
       end
 
       sleep @interval_agent_poll
