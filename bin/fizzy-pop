@@ -44,7 +44,7 @@ begin
       FizzyPop::Debug.breadcrumbs << "send_webhook:#{item[:agent_name]}"
 
       if webhook_client
-        webhook_client.deliver(item[:agent_name], item[:message], channel: item[:channel], to: item[:to])
+        webhook_client.deliver(item[:agent_name], item[:message])
       elsif !FizzyPop::Debug.dry_run
         abort "Missing required --webhook-url and --webhook-token"
       end

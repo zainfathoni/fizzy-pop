@@ -11,16 +11,14 @@ module FizzyPop
     end
 
     # Docs: https://docs.openclaw.ai/automation/webhook#post-/hooks/agent
-    def deliver(agent_name, message, channel: nil, to: nil)
+    def deliver(agent_name, message)
       webhook_url = "#{@base_url}/hooks/agent"
-      body = {
+      payload = JSON.generate(
         agentId: agent_name,
         message: message,
-        wakeMode: "now"
-      }
-      body[:channel] = channel if channel
-      body[:to] = to if to
-      payload = JSON.generate(body)
+        wakeMode: "now",
+        deliver: false
+      )
 
       if Debug.dry_run
         puts "\n--dry-run: would POST to #{webhook_url}"
